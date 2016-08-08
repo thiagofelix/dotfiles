@@ -1,0 +1,7 @@
+export LANG=en_US.UTF-8 LC_CTYPE="en_US.UTF-8"
+export EDITOR=vim
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM=true
