@@ -62,13 +62,14 @@ brew install jenv
 brew install nvm
 
 # Install cask applications
-brew cask install google-chrome
-brew cask install keeweb
 brew cask install bettertouchtool
-brew cask install intellij-idea
+brew cask install dropbox
 brew cask install flux
-# brew cask install slack
+brew cask install iterm2
+brew cask install keeweb
+brew cask install slack
 brew cask install transmission
+
 
 # Remove outdated versions from the cellar.
 brew cleanup

@@ -61,7 +61,6 @@ Plugin 'moll/vim-bbye'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'chriskempson/base16-vim'
-Plugin 'wakatime/vim-wakatime'
 Plugin 'tomtom/tcomment_vim'
 
 " let Vundle manage Vundle (required)
@@ -163,3 +162,6 @@ noremap <C-N> :NERDTreeToggle <cr> " Ctrl+N Open/Close NERDTree
 " ================ AutoCMD =======================
 " autocmd BufEnter * EnableStripWhitespaceOnSave
 
+
+" Shortcuts/Remaps
+inoremap jj <Esc>
