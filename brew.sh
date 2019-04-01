@@ -60,6 +60,7 @@ brew install stow
 brew install the_silver_searcher
 brew install jenv
 brew install nvm
+brew install tmux
 
 # Install cask applications
 brew cask install bettertouchtool

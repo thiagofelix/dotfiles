@@ -58,10 +58,11 @@ Plugin 'rking/ag.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'moll/vim-bbye'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'chriskempson/base16-vim'
 Plugin 'tomtom/tcomment_vim'
+Plugin 'janko-m/vim-test'
+Plugin 'benmills/vimux'
 
 " let Vundle manage Vundle (required)
 Bundle "gmarik/vundle"
@@ -129,8 +130,10 @@ set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 set wildignore+=*vim/backups*
 set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
+set wildignore+=**vendor/rails/**
+set wildignore+=**vendor/cache/**
+set wildignore+=**node_modules/**
+set wildignore+=**tmp/**
 set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
@@ -165,3 +168,16 @@ noremap <C-N> :NERDTreeToggle <cr> " Ctrl+N Open/Close NERDTree
 
 " Shortcuts/Remaps
 inoremap jj <Esc>
+nnoremap <c-k> :exe 'Ag' expand('<cword>')<cr>
+
+
+" misc
+let g:NERDTreeWinSize=40
+let g:ctrlp_show_hidden = 1
+
+" vim-test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>

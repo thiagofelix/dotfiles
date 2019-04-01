@@ -40,7 +40,7 @@ function gitio() {
 function server() {
 	local port="${1:-8000}";
 	sleep 1 && open "http://localhost:${port}/" &
-  python -m SimpleHTTPServer $port
+  ruby -run -ehttpd . -p$port
 }
 
 # Syntax-highlight JSON strings or files

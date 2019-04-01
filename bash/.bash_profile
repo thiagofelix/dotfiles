@@ -54,6 +54,7 @@ export JAVA_HOME="$(jenv javahome)"
 
 # rbenv setup
 export PATH="$HOME/.rbenv/shims:$PATH"
+eval "$(rbenv init -)"
 
 # nvm setuo
 export NVM_DIR="$HOME/.nvm"
@@ -62,3 +63,15 @@ export NVM_DIR="$HOME/.nvm"
 # base-16 setup
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+# fasd setup
+eval "$(fasd --init auto)"
+
+# gcloud setup
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
+
+# go bins
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
