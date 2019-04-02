@@ -63,6 +63,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'janko-m/vim-test'
 Plugin 'benmills/vimux'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " let Vundle manage Vundle (required)
 Bundle "gmarik/vundle"
@@ -168,16 +169,53 @@ noremap <C-N> :NERDTreeToggle <cr> " Ctrl+N Open/Close NERDTree
 
 " Shortcuts/Remaps
 inoremap jj <Esc>
-nnoremap <c-k> :exe 'Ag' expand('<cword>')<cr>
-
 
 " misc
 let g:NERDTreeWinSize=40
 let g:ctrlp_show_hidden = 1
 
 " vim-test
+" make test commands execute using dispatch.vim
+let test#strategy = "vimux"
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+
+" vimux
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
+
+" Open Prompt for a command to run
+nmap <Leader>vo :call VimuxOpenRunner()<CR>
+
+" Prompt for a command to run
+nmap <Leader>vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+nmap <Leader>vl :VimuxRunLastCommand<CR>
+
+" Inspect runner pane
+nmap <Leader>vi :VimuxInspectRunner<CR>
+
+" Close vim tmux runner opened by VimuxRunCommand
+nmap <Leader>vq :VimuxCloseRunner<CR>
+
+" Interrupt any command running in the runner pane
+nmap <Leader>vx :VimuxInterruptRunner<CR>
+
+" Zoom the runner pane (use <bind-key> z to restore runner pane)
+nmap <Leader>vz :call VimuxZoomRunner()<CR>
+
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+map <Leader>vs "vy :call VimuxSlime()<CR>
+
+" Shortcut to open current file in new tab
+nmap <leader>tt :tabnew %<cr>
+au TabLeave * let g:lasttab = tabpagenr()
+" Return to last tab - tr - tab return
+nmap <silent> <leader>tr :exe "tabn ".g:lasttab<cr>
+vmap <silent> <leader>tr :exe "tabn ".g:lasttab<cr>
