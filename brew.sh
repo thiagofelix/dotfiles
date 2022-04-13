@@ -34,10 +34,10 @@ if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
 fi;
 
 # Install `wget` with IRI support.
-brew install wget --with-iri
+brew install wget
 
 # Install more recent versions of some macOS tools.
-brew install vim --with-override-system-vi
+brew install vim
 brew install homebrew/dupes/grep
 brew install homebrew/dupes/openssh
 brew install homebrew/dupes/screen
@@ -50,11 +50,14 @@ brew install sfnt2woff-zopfli
 brew install woff2
 
 # Install other useful binaries.
+brew install fd
+brew install graphviz
+brew install plantuml
 brew install ack
 brew install dark-mode
 brew install git
 brew install git-lfs
-brew install imagemagick --with-webp
+brew install imagemagick
 brew install rename
 brew install ssh-copy-id
 brew install tree
@@ -62,14 +65,23 @@ brew install the_silver_searcher
 brew install jenv
 brew install nvm
 brew install tmux
+brew install fasd
+brew install gh
+brew install jq
+brew install google-cloud-sdk
+brew install ngrok
+brew install rbenv
+brew install ruby-build
+brew install postgresql@13
+brew install awscli
 
 # Install cask applications
-brew install -cask bettertouchtool
-brew install -cask slack
-brew install -cask transmission
-# brew install -cask flux
-# brew install -cask iterm2
-# brew install -cask keeweb
+brew install --cask bettertouchtool
+brew install --cask slack
+brew install --cask transmission
+brew install --cask spectacle
+brew install --cask iterm2
+brew install --cask colorsnapper
 
 
 # Remove outdated versions from the cellar.

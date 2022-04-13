@@ -31,3 +31,11 @@ export MANPAGER='less -X';
 
 # Hide the “default interactive shell is now zsh” warning on macOS.
 export BASH_SILENCE_DEPRECATION_WARNING=1;
+
+export TERM='xterm-256color-italic';
+
+# Tell ruby-build to use homebrew open ssl
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+
+# Add postgress@13 to path
+export PATH="/usr/local/opt/postgresql@13/bin:$PATH"
