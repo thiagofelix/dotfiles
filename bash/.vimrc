@@ -164,16 +164,26 @@ map <Leader>vs "vy :call VimuxSlime()<CR>
 " ============== ctrlp config ==================
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 " Use fd for ctrlp.
-if executable('fd')
-    let g:ctrlp_user_command = 'fd -HI -c never "" "%s"'
-    let g:ctrlp_use_caching = 0
-endif
+" if executable('fd')
+"     let g:ctrlp_user_command = 'fd -HI -c never "" "%s"'
+"     let g:ctrlp_use_caching = 0
+" endif
 
 " ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
-  silent !mkdir ~/.vim/backups > /dev/null 2>&1
-  set undodir=~/.vim/backups
-  set undofile
+" Put plugins and dictionaries in this dir (also on Windows)
+let vimDir = '$HOME/.vim'
+
+if stridx(&runtimepath, expand(vimDir)) == -1
+  " vimDir is not on runtimepath, add it
+  let &runtimepath.=','.vimDir
+endif
+
+" Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+    let myUndoDir = expand(vimDir . '/undodir')
+    " Create dirs
+    call system('mkdir ' . vimDir)
+    call system('mkdir ' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
 endif

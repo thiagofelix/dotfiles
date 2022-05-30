@@ -177,9 +177,12 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
-[user]
-	email = thiago.felix@alphasights.com
-	name = Thiago Felix
+
+[includeIf "gitdir:~/Workspace/alphasights/"]
+  path = .gitconfig-alphasights
+[includeIf "gitdir:~/Workspace/laterpay/"]
+  path = .gitconfig-laterpay
+
 [mergetool "diffmerge"]
 	cmd = /Applications/DiffMerge.app/Contents/MacOS/diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
 [mergetool]
