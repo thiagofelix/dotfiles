@@ -1,0 +1,8 @@
+{
+  "tsserver.enable": true,
+  "suggest.floatConfig.title": "always",
+  "suggest.autoTrigger": "always",
+  "suggest.maxCompleteItemCount": 30,
+  "diagnostic.displayByAle": true,
+  "coc.preferences.formatOnSaveFiletypes": ["*"]
+}

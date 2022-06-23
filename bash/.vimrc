@@ -13,6 +13,8 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
+set hidden                      "Switch buffer without saving
+set showtabline=1               "Show tabline only when more than 1
 
 "turn on syntax highlighting
 syntax on
@@ -23,30 +25,22 @@ syntax on
 " the plugins.
 let mapleader=","
 
-call plug#begin()
-" The default plugin directory will be as follows:
-"   - Vim (Linux/macOS): '~/.vim/plugged'
-"   - Vim (Windows): '~/vimfiles/plugged'
-"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
-" You can specify a custom plugin directory by passing it as the argument
-"   - e.g. `call plug#begin('~/.vim/plugged')`
-"   - Avoid using standard Vim directory names like 'plugin'
-
-Plug 'morhetz/gruvbox'
-Plug 'preservim/nerdtree'
-Plug 'Yggdroot/indentLine'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'rking/ag.vim'
-Plug 'tomtom/tcomment_vim'
-Plug 'benmills/vimux'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
-Plug 'tpope/vim-fugitive'
-Plug 'dense-analysis/ale'
-Plug 'itchyny/lightline.vim'
-Plug 'aklt/plantuml-syntax'
-
 " Initialize plugin system
+call plug#begin()
+Plug 'morhetz/gruvbox' "Theme
+Plug 'preservim/nerdtree'  "Navigation
+Plug 'Yggdroot/indentLine' "Code identation line
+Plug 'ctrlpvim/ctrlp.vim' "Navigation
+Plug 'rking/ag.vim' "Fuzzy search
+Plug 'tomtom/tcomment_vim' "Quick comment
+Plug 'benmills/vimux' "tmux interaction
+Plug 'christoomey/vim-tmux-navigator' "tmux panel navigation
+Plug 'tpope/vim-fugitive' "Git
+Plug 'vim-airline/vim-airline' "airline statusline
+Plug 'vim-airline/vim-airline-themes'  "airline theme
+Plug 'aklt/plantuml-syntax' "plantuml support
+Plug 'dense-analysis/ale' "Linting and LSP
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " ================ Turn Off Swap Files ==============
@@ -62,6 +56,11 @@ if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
   set undodir=~/.vim/backups
   set undofile
 endif
+
+" ================ Mappgins ======================
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
 
 " ================ Indentation ======================
 set autoindent
@@ -88,7 +87,9 @@ set foldnestmax=12       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
 " ================ Completion =======================
-set wildmode=list:longest
+set wildmode=full
+set wildoptions=pum
+" set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 set wildignore+=*vim/backups*
@@ -96,13 +97,12 @@ set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
 set wildignore+=**vendor/rails/**
 set wildignore+=**vendor/cache/**
-set wildignore+=**node_modules/**
+set wildignore+=**node_modules**
 set wildignore+=**tmp/**
 set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
-set wildignore+=**/node_modules/**
 
 " ================ Scrolling ========================
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
@@ -117,18 +117,16 @@ set smartcase       " ...unless we type a capital
 
 " ================ Theming =======================
 colorscheme gruvbox
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ }
-
+" let g:lightline = {
+"       \ 'colorscheme': 'gruvbox',
+"       \ }
+"
 highlight Comment cterm=italic
 
-" ================ KeyMapping =======================
-noremap <C-N> :NERDTreeToggle <cr> " Ctrl+N Open/Close NERDTree
-
-" misc
-let g:NERDTreeWinSize=40
-let g:ctrlp_show_hidden = 1
+" ================ NERDTree =======================
+noremap <C-N> :NERDTreeToggle <cr>
+let g:NERDTreeRespectWildIgnore = 1
+let g:NERDTreeWinSize=30
 
 " ================ vimux =======================
 function! VimuxSlime()
@@ -162,14 +160,14 @@ map <Leader>vs "vy :call VimuxSlime()<CR>
 
 
 " ============== ctrlp config ==================
+" use git for ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 " Use fd for ctrlp.
-" if executable('fd')
-"     let g:ctrlp_user_command = 'fd -HI -c never "" "%s"'
-"     let g:ctrlp_use_caching = 0
-" endif
+if executable('fd')
+  let g:ctrlp_user_command = 'fd --type f --color=never "" %s'
+  let g:ctrlp_use_caching = 0
+endif
 
-" ================ Persistent Undo ==================
 " Put plugins and dictionaries in this dir (also on Windows)
 let vimDir = '$HOME/.vim'
 
@@ -178,12 +176,68 @@ if stridx(&runtimepath, expand(vimDir)) == -1
   let &runtimepath.=','.vimDir
 endif
 
-" Keep undo history across sessions by storing it in a file
-if has('persistent_undo')
-    let myUndoDir = expand(vimDir . '/undodir')
-    " Create dirs
-    call system('mkdir ' . vimDir)
-    call system('mkdir ' . myUndoDir)
-    let &undodir = myUndoDir
-    set undofile
+" ============== ALE ==================
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_open_list = 0
+let g:ale_list_window_size = 5
+nmap <silent> ]g :lnext<cr>
+nmap <silent> [g :lprev<cr>
+
+" Airline 
+let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 0
+
+
+" ============== COC ==================
+let g:coc_disable_transparent_cursor=1
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
+
+set shortmess+=c " Don't pass messages to |ins-completion-menu|.
+set signcolumn=number "Show errors in the line number column
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call CocActionAsync('doHover')<CR>
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>do <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Mappings for CoCList
+" Show all diagnostics.
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
 endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+
+" ============== jsonc ==================
+
+" https://github.com/microsoft/TypeScript/pull/5450
+autocmd BufNewFile,BufRead tsconfig.json setlocal filetype=jsonc

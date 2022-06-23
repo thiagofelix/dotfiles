@@ -50,6 +50,7 @@ brew install sfnt2woff-zopfli
 brew install woff2
 
 # Install other useful binaries.
+brew install ripgrep
 brew install fd
 brew install graphviz
 brew install plantuml
