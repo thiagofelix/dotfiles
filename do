@@ -138,18 +138,15 @@ disable_system_integrity_protection() {
             # Apple Silicon
             log_message "Apple Silicon detected. Preparing SIP commands for Apple Silicon..."
             if [[ $macOS_version == 13* ]]; then
-                echo "Detected macOS 13.x.x (Apple Silicon)"
-		csrutil enable --without fs --without debug --without nvram
+                echo "For macOS 13.x.x (Apple Silicon), run 'csrutil enable --without fs --without debug --without nvram' in Recovery Mode."
             elif [[ $macOS_version == 12* ]]; then
-                echo "Detected macOS 12.x.x (Apple Silicon)"
-		csrutil disable --with kext --with dtrace --with basesystem
+                echo "For macOS 12.x.x (Apple Silicon), run 'csrutil disable --with kext --with dtrace --with basesystem' in Recovery Mode."
             fi
-            echo "After rebooting, open a terminal and run \nsudo nvram boot-args=-arm64e_preview_abi\n, then reboot again."
+            echo "After rebooting, open a terminal and run 'sudo nvram boot-args=-arm64e_preview_abi', then reboot again."
         else
             # Intel
             log_message "Intel processor detected. Preparing SIP commands for Intel..."
-            echo "Detected Intel macOS"
-	    csrutil disable --with kext --with dtrace --with nvram --with basesystem
+            echo "For Intel macOS 13.x.x, 12.x.x, or 11.x.x, run 'csrutil disable --with kext --with dtrace --with nvram --with basesystem' in Recovery Mode."
         fi
         log_message "Please reboot into Recovery Mode to complete this process."
     else
