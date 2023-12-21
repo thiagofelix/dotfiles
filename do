@@ -152,11 +152,6 @@ disable_system_integrity_protection() {
     fi
 }
 
-# Check if yabai is installed
-is_yabai_installed() {
-    [[ -f "/opt/homebrew/bin/yabai" ]]
-}
-
 setup_yabai_sudoers() {
     log_message "Checking and setting up Yabai sudoers entry..."
 
@@ -172,21 +167,30 @@ setup_yabai_sudoers() {
     fi
 }
 
-packer() {
-	log_message "Installing packer"
-	git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+install_packer() {
+  if [[ -d "~/.local/share/nvim/site/pack/packer/" neq true ]] then
+    log_message "Installing packer"
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+  fi
+}
+
+install_omz() {
+  if [[ -d "~/.oh-my-zsh" neq true ]] then
+    log_message "Installing oh my zsh"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  fi
 }
 
 main() {
     create_dotfiles_directory
+    update_macos_settings
     install_homebrew
+    install_omz
     run_brewfile
     run_stow
-    update_macos_settings
-    if is_yabai_installed; then
-      setup_yabai_sudoers
-    fi
-    packer
+    install_packer
+    install_omz
+    setup_yabai_sudoers
     log_message "Dotfiles setup complete."
 }
 

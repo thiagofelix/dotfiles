@@ -1,3 +1,11 @@
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="robbyrussell"
+plugins=(git vi-mode)
+
+source $ZSH/oh-my-zsh.sh
+
 # Homebrew 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -13,11 +21,6 @@ export PATH="$PATH:$N_PREFIX/bin"
 # Aliases
 alias g='git'
 alias k='kubectl'
-
-# History file configuration
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
 
 # Keychain Secrets
 # Supertab lpmachineuser NPM_TOKEN
