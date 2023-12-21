@@ -7,6 +7,8 @@ bindkey -v
 # Exports
 export EDITOR='nvim'
 export VISUAL='nvim'
+export N_PREFIX="$HOME/.n"
+export PATH="$PATH:$N_PREFIX/bin"
 
 # Aliases
 alias g='git'
