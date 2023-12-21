@@ -5,9 +5,8 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 PROMPT='%n@%m %1~ %# '
 
 # Aliases
-alias ll='ls -lah'
-alias la='ls -A'
-alias l='ls -l'
+alias g='git'
+alias k='kubectl'
 
 # Set Zsh options
 setopt EXTENDED_GLOB

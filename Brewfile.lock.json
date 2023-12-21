@@ -74,6 +74,15 @@
             }
           }
         }
+      },
+      "yabai": {
+        "version": "6.0.1",
+        "bottle": false
+      }
+    },
+    "tap": {
+      "koekeishiya/formulae": {
+        "revision": "d4c95802ca991ea41512320af412072e775c1eb7"
       }
     }
   },
