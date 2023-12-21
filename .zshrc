@@ -2,25 +2,15 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
-plugins=(git vi-mode)
+plugins=(brew git vi-mode z kubectl terraform)
 
 source $ZSH/oh-my-zsh.sh
-
-# Homebrew 
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Enable Vi mode
-bindkey -v
 
 # Exports
 export EDITOR='nvim'
 export VISUAL='nvim'
 export N_PREFIX="$HOME/.n"
 export PATH="$PATH:$N_PREFIX/bin"
-
-# Aliases
-alias g='git'
-alias k='kubectl'
 
 # Keychain Secrets
 # Supertab lpmachineuser NPM_TOKEN

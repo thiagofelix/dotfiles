@@ -162,22 +162,22 @@ setup_yabai_sudoers() {
         log_message "Yabai sudoers entry not found. Informing user to add it manually."
         echo "You need to add a sudoers entry for Yabai. This requires editing the sudoers file safely using 'sudo visudo'."
         echo "Add the following line to the sudoers file:"
-	echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa"
-	echo "run 'sudo visudo -f /private/etc/sudoers.d/yabai'"
+        echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa"
+        echo "run 'sudo visudo -f /private/etc/sudoers.d/yabai'"
     fi
 }
 
-install_packer() {
-  if [[ -d "~/.local/share/nvim/site/pack/packer/" neq true ]] then
-    log_message "Installing packer"
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+install_omz() {
+  if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    log_message "Installing oh my zsh"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   fi
 }
 
-install_omz() {
-  if [[ -d "~/.oh-my-zsh" neq true ]] then
-    log_message "Installing oh my zsh"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+install_packer() {
+  if [[ ! -d "$HOME/.local/share/nvim/site/pack/packer/" ]]; then
+    log_message "Installing packer"
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
   fi
 }
 
