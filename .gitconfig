@@ -1,0 +1,25 @@
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	ui = auto
+[user]
+	email = me@thiagofelix.com
+	name = thiagofelix
+[core]
+	pager = less -FRSX
+	editor = nvim
+[alias]
+	fo = fetch -p origin
+[help]
+	autocorrect = 1
+[push]
+	default = simple
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+
+[includeIf "gitdir:/Volumes/Workspace/supertab/"]
+    path = ~/.dotfiles/git/.gitconfig-supertab

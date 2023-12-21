@@ -62,7 +62,7 @@ run_stow() {
     log_message "Starting dry-run for linking dotfiles using Stow..."
     cd ~/.dotfiles
 
-    /opt/homebrew/bin/stow --ignore='^(?!\.).+' -n .
+    /opt/homebrew/bin/stow --ignore='^(?!\.).+' -v -n .
     echo "The above changes will be made. Do you want to proceed? (y/n)"
     read -r confirmation
     if [[ $confirmation =~ ^[Yy]$ ]]; then
@@ -172,6 +172,11 @@ setup_yabai_sudoers() {
     fi
 }
 
+packer() {
+	log_message "Installing packer"
+	git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+}
+
 main() {
     create_dotfiles_directory
     install_homebrew
@@ -181,6 +186,7 @@ main() {
     if is_yabai_installed; then
       setup_yabai_sudoers
     fi
+    packer
     log_message "Dotfiles setup complete."
 }
 
