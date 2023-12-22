@@ -12,6 +12,9 @@ brew "terraform"
 brew "fzf"
 brew "fd"
 
+cask "homebrew/cask-fonts"
+cask "font-fira-code-nerd-font"
+
 cask "google-chrome"
 cask "kitty"
 cask "docker"
