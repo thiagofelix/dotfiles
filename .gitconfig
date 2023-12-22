@@ -22,4 +22,4 @@
 	autoSetupRemote = true
 
 [includeIf "gitdir:/Volumes/Workspace/supertab/"]
-    path = ~/.dotfiles/git/.gitconfig-supertab
+    path = ~/.gitconfig-supertab
