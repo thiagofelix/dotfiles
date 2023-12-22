@@ -2,8 +2,8 @@
 local M = {}
 
 M.ui = {
-  theme = "blossom_light",
-  theme_toggle = { "blossom_light", "one_light" },
+  theme = "nord",
+  theme_toggle = { "nord", "one_light" },
 }
 
 M.plugins = "custom.plugins"

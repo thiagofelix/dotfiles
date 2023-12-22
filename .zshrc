@@ -6,19 +6,12 @@ plugins=(brew git vi-mode z kubectl terraform)
 
 source $ZSH/oh-my-zsh.sh
 
-# Exports
-export EDITOR='nvim'
-export VISUAL='nvim'
-export N_PREFIX="$HOME/.n"
-export PATH="$PATH:$N_PREFIX/bin"
-
 # Keychain Secrets
 # Supertab lpmachineuser NPM_TOKEN
 export NPM_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "GitHub Package Registry (read): PAT lpmachineuser")
 
 # NeoVim Configs
-alias v='nvim' # default Neovim config
-alias lazyvim='NVIM_APPNAME=nvim-lazyvim nvim' # LazyVim
+alias v='nvchad' # default Neovim config
 alias nvchad='NVIM_APPNAME=nvim-nvchad nvim' # NvChad
 
 vv() {
@@ -31,3 +24,9 @@ vv() {
   # Open Neovim with the selected config
   NVIM_APPNAME=$(basename $config) nvim
 }
+
+# Exports
+export EDITOR='nvchad'
+export VISUAL='nvchad'
+export N_PREFIX="$HOME/.n"
+export PATH="$PATH:$N_PREFIX/bin"
