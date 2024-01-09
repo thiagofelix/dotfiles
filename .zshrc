@@ -6,14 +6,6 @@ plugins=(brew git vi-mode z kubectl terraform)
 
 source $ZSH/oh-my-zsh.sh
 
-# Keychain Secrets
-# Supertab lpmachineuser NPM_TOKEN
-export NPM_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "GitHub Package Registry (read): PAT lpmachineuser")
-
-# NeoVim Configs
-alias v='nvchad' # default Neovim config
-alias nvchad='NVIM_APPNAME=nvim-nvchad nvim' # NvChad
-
 vv() {
   # Assumes all configs exist in directories named ~/.config/nvim-*
   local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
@@ -26,7 +18,13 @@ vv() {
 }
 
 # Exports
-export EDITOR='nvchad'
-export VISUAL='nvchad'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export N_PREFIX="$HOME/.n"
 export PATH="$PATH:$N_PREFIX/bin"
+
+# Keychain Secrets
+export NPM_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "GitHub Package Registry (read): PAT lpmachineuser")
+export CIVO_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Civo Token")
+export GITHUB_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Github Token")
+
