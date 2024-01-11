@@ -66,6 +66,11 @@ local plugins = {
       local opts = require "plugins.configs.cmp"
       return vim.tbl_deep_extend("force", opts, overrides.cmp)
     end
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = overrides.telescope,
   }
 }
 

@@ -12,6 +12,7 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+    "svelte"
   },
   indent = {
     enable = true,
@@ -72,6 +73,14 @@ M.cmp = {
     { name = "buffer" },
     { name = "nvim_lua" },
     { name = "path" },
+  }
+}
+
+M.telescope = {
+  pickers = {
+    find_files = {
+      hidden = true
+    }
   }
 }
 
