@@ -1,0 +1,46 @@
+" relative line numbers
+set relativenumber
+
+" disable backup files
+set nobackup
+set nowritebackup
+
+" disable swap files
+set noswapfile
+
+" disable auto completion
+set noshowmode
+
+" disable line wrap
+set nowrap
+
+" enable syntax highlighting
+syntax on
+
+" set tab width to 4 spaces
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+" enable mouse support
+set mouse=a
+
+" enable highlighting of the current line
+set cursorline
+
+" enable search highlighting
+set hlsearch
+
+" enable incremental search
+set incsearch
+
+" enable incremental search highlighting
+set incsearch
+
+" set the encoding
+set encoding=utf-8
+
+" set the file format
+set fileformat=unix
+

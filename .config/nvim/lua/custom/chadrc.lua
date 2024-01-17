@@ -2,8 +2,8 @@
 local M = {}
 
 M.ui = {
-  theme = "everforest_light" or "everforest_light",
-  theme_toggle = { "everforest_light", "everforest" },
+  theme = "everforest" or "everforest",
+  theme_toggle = { "everforest", "nightlamp" },
 }
 
 M.plugins = "custom.plugins"

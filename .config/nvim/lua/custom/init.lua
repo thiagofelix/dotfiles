@@ -18,10 +18,31 @@ vim.cmd([[
 
 function _G.toggle_theme()
   local mode = vim.fn.system("defaults read -g AppleInterfaceStyle")
-  local is_dark_mode = mode:match("Dark")
-  local is_nvim_dark = vim.g.nvchad_theme == "everforest"
-  if not (is_dark_mode and is_nvim_dark) then
-    print("Toggling theme")
+  local theme = vim.g.nvchad_theme
+  print(mode)
+
+  if (mode:match("Dark") and theme ~= "everforest") then
     require("base46").toggle_theme()
   end
+
+  if (mode:match("Light") and theme ~= "everforest_light") then
+    require("base46").toggle_theme()
+  end
+
 end
+
+vim.cmd([[
+  augroup filetypes
+    autocmd!
+    autocmd BufNewFile,BufReadPost *.adl,*.adls,*.adlf setf adl
+  augroup END
+]])
+
+-- Source adl_colors file using lua
+vim.cmd([[source ~/.config/nvim/lua/custom/adl_colors.vim]])
+
+vim.lsp.set_log_level 'trace'
+if vim.fn.has 'nvim-0.5.1' == 1 then
+  require('vim.lsp.log').set_format_func(vim.inspect)
+end
+

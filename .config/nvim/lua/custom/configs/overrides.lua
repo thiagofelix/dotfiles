@@ -12,7 +12,8 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
-    "svelte"
+    "svelte",
+    "vimdoc"
   },
   indent = {
     enable = true,
@@ -44,7 +45,11 @@ M.mason = {
 -- git support in nvimtree
 M.nvimtree = {
   git = {
-    enable = true,
+    enable = false,
+  },
+
+  view = {
+    width = 40
   },
 
   renderer = {
@@ -59,7 +64,7 @@ M.nvimtree = {
 
 M.copilot = {
   suggestion = { enabled = false },
-  panel = { enabled = false },
+  panel = { enabled = true },
   filetypes = {
     yaml = true
   }

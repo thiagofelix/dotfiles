@@ -43,15 +43,13 @@ yabai -m config                                 \
 yabai -m rule --add app='^System Information$' manage=off
 yabai -m rule --add app='^System Preferences$' manage=off
 yabai -m rule --add title='Preferences$' manage=off
+yabai -m rule --add title='^zoom.us$' manage=off
 
 # float settings windows
 yabai -m rule --add title='Settings$' manage=off
 
 # float IntelliJ Preference panes
-yabai -m rule --add app='IntelliJ IDEA' title='^$' manage=off
-yabai -m rule --add app='IntelliJ IDEA' title='Project Structure' manage=off
-yabai -m rule --add app='IntelliJ IDEA' title='Preferences' manage=off
-yabai -m rule --add app='IntelliJ IDEA' title='Edit configuration' manage=off
+yabai -m rule --add app='IntelliJ IDEA' manage=off
 
 echo "yabai configuration loaded.."
 
