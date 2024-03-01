@@ -17,22 +17,26 @@ export PATH="/Volumes/Workspace/ehr/nedap/archetype-languageserver/build/image/a
 # Keychain Secrets
 export OPENAI_API_KEY=$(security find-generic-password -w -a $LOGNAME -s "OpenAI Token")
 export NPM_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "GitHub Package Registry (read): PAT lpmachineuser")
+export NPM_TOKEN_SUPERTAB_REGISTRY=$(security find-generic-password -w -a $LOGNAME -s "lpmachineuser package manager token")
 export CIVO_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Civo Token")
-export GITHUB_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Github Token")
 export DO_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Digital Ocean Token")
 export DIGITAL_OCEAN_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Digital Ocean Token")
-export EOMF="/Volumes/Workspace/ehr/EOMF"
-export EIFFEL_HUB="/Volumes/Workspace/ehr/EiffelHub"
+export LOKALISE_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Lokalise Token")
+export CIRCLECI_CLI_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "CircleCI Token")
+export RESEND_API_KEY=$(security find-generic-password -w -a $LOGNAME -s "Resend Token")
+
 export SDKMAN_DIR="$HOME/.sdkman"
 
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 function light_mode() {
+  osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false'
   kitty @ set-colors -a ~/.config/kitty/themes/Solarized_Light.conf
   defaults write -g AppleInterfaceStyle Light
 }
 
 function dark_mode() {
+  osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
   kitty @ set-colors -a ~/.config/kitty/themes/nord.conf
   defaults write -g AppleInterfaceStyle Dark
 }
@@ -48,15 +52,6 @@ function toggle_mode() {
     dark_mode
   fi
 }
-
-local mode=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
-
-if [[ $mode == "Dark" ]]; then
-  dark_mode
-else
-  light_mode
-fi
-
 
 vv() {
   # Assumes all configs exist in directories named ~/.config/nvim-*

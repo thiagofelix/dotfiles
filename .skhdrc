@@ -157,5 +157,5 @@ alt - p : yabai -m window --toggle sticky --toggle pip
 # restart yabai
 ctrl + alt + cmd - r : yabai --restart-service
 
-# open terminal, blazingly fast compared to iTerm/Hyper
-# cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+# toggle dark mode (F6 is do not disturb mode)
+cmd - f6 : osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode'
