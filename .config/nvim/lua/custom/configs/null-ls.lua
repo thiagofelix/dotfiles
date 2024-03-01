@@ -3,9 +3,9 @@ local null_ls = require "null-ls"
 local b = null_ls.builtins
 
 local sources = {
-
   -- webdev stuff
   b.formatting.prettier,
+  b.formatting.eslint,
   b.diagnostics.eslint,
 
   -- Lua
@@ -16,6 +16,5 @@ local sources = {
 }
 
 null_ls.setup {
-  debug = true,
   sources = sources,
 }

@@ -41,8 +41,8 @@ vim.cmd([[
 -- Source adl_colors file using lua
 vim.cmd([[source ~/.config/nvim/lua/custom/adl_colors.vim]])
 
-vim.lsp.set_log_level 'trace'
-if vim.fn.has 'nvim-0.5.1' == 1 then
-  require('vim.lsp.log').set_format_func(vim.inspect)
-end
+-- vim.lsp.set_log_level 'trace'
+-- if vim.fn.has 'nvim-0.5.1' == 1 then
+--   require('vim.lsp.log').set_format_func(vim.inspect)
+-- end
 
