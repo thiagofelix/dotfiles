@@ -12,7 +12,8 @@ export VISUAL='nvim'
 export N_PREFIX="$HOME/.n"
 export PATH="$PATH:$N_PREFIX/bin"
 export PATH="/opt/homebrew/bin:$PATH:"
-export PATH="/Volumes/Workspace/ehr/nedap/archetype-languageserver/build/image/archie-lsp-macos-arm64/bin:$PATH" 
+export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # Keychain Secrets
 export OPENAI_API_KEY=$(security find-generic-password -w -a $LOGNAME -s "OpenAI Token")
@@ -24,34 +25,6 @@ export DIGITAL_OCEAN_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "D
 export LOKALISE_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Lokalise Token")
 export CIRCLECI_CLI_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "CircleCI Token")
 export RESEND_API_KEY=$(security find-generic-password -w -a $LOGNAME -s "Resend Token")
-
-export SDKMAN_DIR="$HOME/.sdkman"
-
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-function light_mode() {
-  osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false'
-  kitty @ set-colors -a ~/.config/kitty/themes/Solarized_Light.conf
-  defaults write -g AppleInterfaceStyle Light
-}
-
-function dark_mode() {
-  osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
-  kitty @ set-colors -a ~/.config/kitty/themes/nord.conf
-  defaults write -g AppleInterfaceStyle Dark
-}
-
-function toggle_mode() {
-  local mode=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
-
-  if [[ $mode == "Dark" ]]; then
-    echo "$mode -> Light"
-    light_mode
-  else
-    echo "$mode -> Dark"
-    dark_mode
-  fi
-}
 
 vv() {
   # Assumes all configs exist in directories named ~/.config/nvim-*

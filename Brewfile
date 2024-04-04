@@ -1,6 +1,7 @@
+tap "homebrew/cask-fonts"
 tap "koekeishiya/formulae"
-brew "yabai"
 
+brew "yabai"
 brew "stow"
 brew "skhd"
 brew "nvim"
@@ -8,19 +9,11 @@ brew "n"
 brew "jq"
 brew "the_silver_searcher"
 brew "z"
-brew "terraform"
 brew "fzf"
 brew "fd"
 
-brew "argocd"
-brew "helm"
-brew "kubectl"
-
-tap "homebrew/cask-fonts"
 cask "font-fira-code-nerd-font"
-
 cask "google-chrome"
 cask "kitty"
 cask "docker"
 cask "postman"
-cask "loom"
