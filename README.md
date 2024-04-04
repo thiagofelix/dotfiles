@@ -1,3 +1,4 @@
 # dotfiles
 
-`stow .`
+* `stow .` to Install
+* `stow -D .` to Uninstall
