@@ -36,3 +36,7 @@ vv() {
   # Open Neovim with the selected config
   NVIM_APPNAME=$(basename $config) nvim
 }
+
+# fnm
+export PATH="./.fnm:$PATH"
+eval "$(fnm env --use-on-cd)"
