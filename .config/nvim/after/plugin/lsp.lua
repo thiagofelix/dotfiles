@@ -72,8 +72,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- or a suggestion from your LSP for this to activate.
     map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-    -- Get Pretty
-    map('gp', vim.lsp.buf.format, '[G]et [P]Pretty')
+    -- Get Pretty (format with timeout)
+    map('gp', vim.lsp.buf.format, '[G]et [P]retty')
 
     -- Opens a popup that displays documentation about the word under your cursor
     --  See `:help K` for why this keymap.
@@ -82,25 +82,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- WARN: This is not Goto Definition, this is Goto Declaration.
     --  For example, in C this would take you to the header.
     map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-
-    -- The following two autocommands are used to highlight references of the
-    -- word under your cursor when your cursor rests there for a little while.
-    --    See `:help CursorHold` for information about when this is executed
-    --
-    -- When you move your cursor, the highlights will be cleared (the second autocommand).
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
-
-    if client and client.server_capabilities.documentHighlightProvider then
-      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-        buffer = event.buf,
-        callback = vim.lsp.buf.document_highlight,
-      })
-
-      vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-        buffer = event.buf,
-        callback = vim.lsp.buf.clear_references,
-      })
-    end
   end,
 })
 
@@ -131,8 +112,7 @@ local servers = {
   --    https://github.com/pmizio/typescript-tools.nvim
   --
   -- But for many setups, the LSP (`tsserver`) will work just fine
-  tsserver = {
-  },
+  tsserver = {},
   tailwindcss = {},
 
   lua_ls = {
@@ -162,6 +142,7 @@ local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
   'stylua', -- Used to format Lua code
   'prettier', -- Used to format JavaScript, TypeScript, etc.
+  'eslint', -- Used to lint JavaScript, TypeScript, etc.
 })
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -177,6 +158,3 @@ require('mason-lspconfig').setup {
     end,
   },
 }
-
--- set lsp log level
-vim.lsp.set_log_level(vim.log.levels.DEBUG)

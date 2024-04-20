@@ -30,8 +30,11 @@ vim.opt.foldexpr         = 'nvim_treesitter#foldexpr()'
 
 -- auto-reload files when modified externally
 -- https://unix.stackexchange.com/a/383044
-vim.o.autoread = true
+vim.o.autoread           = true
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
   command = "if mode() != 'c' | checktime | endif",
   pattern = { "*" },
 })
+
+-- Disable folding in Telescope's result window.
+vim.api.nvim_create_autocmd("FileType", { pattern = "TelescopeResults", command = [[setlocal nofoldenable]] })

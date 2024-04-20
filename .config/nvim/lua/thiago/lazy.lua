@@ -15,7 +15,7 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons",
   {
-    "nvim-telescope/telescope.nvim", 
+    "nvim-telescope/telescope.nvim",
     opts = {
       pickers = {
         find_files = {
@@ -33,17 +33,29 @@ require("lazy").setup({
   "folke/tokyonight.nvim",
   { "folke/neodev.nvim", opts = {} },
   {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
-    opts =  {
+    opts = {
       filesystem = {
         filtered_items = {
           hide_dotfiles = false
         }
-      }
+      },
+      event_handlers = {
+        {
+          event = "neo_tree_buffer_enter",
+          handler = function(_)
+            vim.opt_local.foldenable = false
+          end,
+        },
+      },
     },
   },
   {
@@ -75,7 +87,7 @@ require("lazy").setup({
 
       return vim.tbl_deep_extend("force", opts, {
         formatting = {
-          format = function (entry, item)
+          format = function(entry, item)
             return require('tailwindcss-colorizer-cmp').formatter(entry, item)
           end
         },
@@ -108,7 +120,7 @@ require("lazy").setup({
   },
   {
     "zbirenbaum/copilot.lua",
-    opts =  {
+    opts = {
       suggestion = {
         enabled = true,
         auto_trigger = true,
@@ -140,6 +152,9 @@ require("lazy").setup({
       local null_ls = require('null-ls')
       null_ls.setup({
         sources = {
+          null_ls.builtins.formatting.isort,
+          null_ls.builtins.formatting.black,
+          null_ls.builtins.formatting.djhtml,
           null_ls.builtins.formatting.prettier,
         }
       })
