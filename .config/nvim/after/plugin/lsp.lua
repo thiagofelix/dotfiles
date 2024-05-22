@@ -73,7 +73,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
     -- Get Pretty (format with timeout)
-    map('gp', vim.lsp.buf.format, '[G]et [P]retty')
+    map('gp', function() vim.lsp.buf.format { async = true } end, '[G]et [P]retty')
 
     -- Opens a popup that displays documentation about the word under your cursor
     --  See `:help K` for why this keymap.
@@ -105,6 +105,28 @@ local servers = {
   -- clangd = {},
   -- gopls = {},
   pyright = {},
+  -- pylsp = {
+  --   settings = {
+  --     pylsp = {
+  --       plugins = {
+  --         jedi_completion = { enabled = true },
+  --         black = {
+  --           enabled = true,
+  --           line_length = 80,
+  --         },
+  --         pydocstyle = { enabled = false },
+  --         pycodestyle = {
+  --           enabled = true,
+  --           maxLineLength = 80,
+  --         },
+  --         flake8 = {
+  --           enabled = false,
+  --           maxLineLength = 80,
+  --         },
+  --       }
+  --     }
+  --   }
+  -- },
   -- rust_analyzer = {},
   -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
   --
@@ -124,6 +146,17 @@ local servers = {
       },
     },
   },
+
+  ruff_lsp = {
+    cmd = { 'ruff-lsp' },
+    filetypes = { 'python' },
+    root_dir = require('lspconfig').util.find_git_ancestor,
+    init_options = {
+      settings = {
+        args = {}
+      }
+    }
+  },
 }
 
 require('neodev').setup()
@@ -140,9 +173,11 @@ require('mason').setup()
 -- for you, so that they are available from within Neovim.
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
-  'stylua', -- Used to format Lua code
+  'stylua',   -- Used to format Lua code
   'prettier', -- Used to format JavaScript, TypeScript, etc.
-  'eslint', -- Used to lint JavaScript, TypeScript, etc.
+  'eslint',   -- Used to lint JavaScript, TypeScript, etc.
+  'rustywind',-- Used to sort tailwind classes
+  --'ruff',     -- Used to format python code
 })
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

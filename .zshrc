@@ -32,3 +32,8 @@ export NPM_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Supertab NP
 
 # fnm
 eval "$(fnm env --use-on-cd)"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
