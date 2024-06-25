@@ -19,7 +19,7 @@ require("lazy").setup({
     opts = {
       pickers = {
         find_files = {
-          hidden = true
+          find_command = { "rg", "--files", "--hidden", "--glob", "!.git" },
         }
       }
     },
@@ -152,17 +152,29 @@ require("lazy").setup({
       local null_ls = require('null-ls')
       null_ls.setup({
         sources = {
---         null_ls.builtins.formatting.isort,
---         null_ls.builtins.formatting.black,
---          null_ls.builtins.formatting.djhtml,
+          --         null_ls.builtins.formatting.isort,
+          --         null_ls.builtins.formatting.black,
+          --          null_ls.builtins.formatting.djhtml,
           null_ls.builtins.diagnostics.djlint,
-          null_ls.builtins.formatting.djlint,
-          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.formatting.djlint.with({
+            extra_filetypes = { 'html' }
+          }),
+          null_ls.builtins.formatting.prettier.with({
+            extra_filetypes = { 'html' }
+          }),
           null_ls.builtins.formatting.rustywind.with({
             extra_filetypes = { 'htmldjango' }
           }),
         }
       })
+    end
+  },
+  {
+    'Olical/conjure',
+    lazy = true,
+    init = function ()
+      vim.g["conjure#client#scheme#stdio#command"] = "csi -quiet -:c"
+      vim.g["conjure#client#scheme#stdio#prompt_pattern"] = "\n-#;%d-> "
     end
   }
 })

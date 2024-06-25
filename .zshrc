@@ -16,6 +16,7 @@ export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="./.fnm:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
 
 # Keychain Secrets
 export ANTHROPIC_API_KEY=$(security find-generic-password -w -a $LOGNAME -s "ANTHROPIC_API_KEY")
@@ -34,6 +35,17 @@ export NPM_TOKEN=$(security find-generic-password -w -a $LOGNAME -s "Supertab NP
 eval "$(fnm env --use-on-cd)"
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+
+vv() {
+  # Assumes all configs exist in directories named ~/.config/nvim-*
+  local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
+ 
+  # If I exit fzf without selecting a config, don't open Neovim
+  [[ -z $config ]] && echo "No config selected" && return
+ 
+  # Open Neovim with the selected config
+  NVIM_APPNAME=$(basename $config) nvim
+}
