@@ -1,0 +1,12 @@
+brew "coreutils" 
+brew "moreutils"
+brew "findutils"
+brew "gnu-sed"
+brew "stow" 
+brew "jq" 
+brew "yq" 
+brew "nvim"
+
+cask "raycast" 
+cask "arc" 
+cask "google-chrome" 
