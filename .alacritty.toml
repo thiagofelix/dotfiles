@@ -3,7 +3,7 @@ import = [
 ]
 
 [window]
-decorations =  "Buttonless"
+#decorations =  "Buttonless"
 padding = { y = 8, x = 8}
 
 [font]
