@@ -12,3 +12,7 @@
 * Alacritty: Terminal emulator
 * Neovim: Text editor
 * zsh/zinit: Shell
+
+### macos
+
+Set some macos defaults via `./.macos`
