@@ -21,6 +21,10 @@ require("lazy").setup({
 		-- add extras
 		{ import = "lazyvim.plugins.extras.coding.copilot" },
 		{ import = "lazyvim.plugins.extras.coding.copilot-chat" },
+		{ import = "lazyvim.plugins.extras.lang.clangd" },
+		{ import = "lazyvim.plugins.extras.lang.typescript" },
+		{ import = "lazyvim.plugins.extras.formatting.prettier" },
+		{ import = "lazyvim.plugins.extras.lang.cmake" },
 		-- import/override with your plugins
 		{ import = "plugins" },
 	},

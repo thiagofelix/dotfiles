@@ -1,3 +1,5 @@
 \.macos
+\.git
+
 Brewfile
 Brewfile\.lock\.json

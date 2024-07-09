@@ -79,3 +79,6 @@ PATH="$(brew --prefix gnu-sed)/libexec/gnubin:$PATH"
 
 # Secrets
 OPENAI_API_KEY=$(security find-generic-password -l "OPENAI_API_KEY" -w)
+
+# Defaults
+EDITOR=nvim
