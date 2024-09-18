@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Hide Dock
+echo "Disabling dock"
+defaults write com.apple.dock autohide -bool true && killall Dock &>/dev/null
+defaults write com.apple.dock autohide-delay -float 1000 && killall Dock &>/dev/null
+defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock &>/dev/null
+
+# Restore Dock
+# echo "Restoring dock"
+# defaults write com.apple.dock autohide -bool false && killall Dock
+# defaults delete com.apple.dock autohide-delay && killall Dock
+# defaults write com.apple.dock no-bouncing -bool FALSE && killall Dock
+
+# Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
+defaults write com.apple.finder QuitMenuItem -bool true
