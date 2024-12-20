@@ -105,13 +105,19 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR="/opt/homebrew/bin/nvim"
 export GPG_TTY=$(tty)
+export OPENAI_API_KEY=$(security find-generic-password -s openai-api-key -w)
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 
 # PATH environment
+export PATH="$(brew --prefix postgresql@16)/bin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix gnu-sed)/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix mysql@8.0)/bin:$PATH"
 export PATH="/usr/local/bin/:$PATH"
 export PATH="$PNPM_HOME:$PATH"
+
+# Term
+export TERM=xterm-256color
+
