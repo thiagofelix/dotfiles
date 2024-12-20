@@ -106,9 +106,17 @@ return {
       -- Shortcut for searching your Neovim plugin files
       vim.keymap.set('n', '<leader>sp', function()
         builtin.find_files {
-          cwd = vim.fs.joinpath(vim.fn.stdpath 'data', 'lazy'),
+          cwd = vim.fs.normalize(vim.fn.stdpath 'data', 'lazy'),
         }
       end, { desc = '[S]earch Neovim [P]lugins' })
+
+      -- Shortcut for searching your Neovim plugin files
+      vim.keymap.set('n', '<leader>st', function()
+        builtin.find_files {
+          cwd = vim.fs.normalize '~/dotfiles',
+          find_command = { 'rg', '--files', '--hidden', '-g', '!.git' },
+        }
+      end, { desc = '[S]earch Do[t] Files' })
     end,
   },
 }
