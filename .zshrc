@@ -80,8 +80,8 @@ toggle_kitty_transparency() {
 # Aliases
 
 alias vim=nvim
-alias python=~/.pyenv/versions/3.12.5/bin/python
-alias pip=~/.pyenv/versions/3.12.5/bin/pip
+alias python="/opt/homebrew/bin/python3"
+alias pip="/opt/homebrew/bin/pip3"
 alias kill_port=findandkill
 alias ls='ls --color'
 
