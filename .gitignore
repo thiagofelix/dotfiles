@@ -1,3 +1,4 @@
 .gitconfig
 .config/tmux/plugins
 .config/lazygit/state.yml
+.config/nvim-lazyvim/lazy-lock.json
