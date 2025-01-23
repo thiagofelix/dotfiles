@@ -1,6 +1,6 @@
 return {
   {
     "echasnovski/mini.pairs",
-    disabled = true,
+    enabled = false,
   },
 }
