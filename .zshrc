@@ -107,6 +107,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR="/opt/homebrew/bin/nvim"
 export VISUAL="/opt/homebrew/bin/nvim"
 export GPG_TTY=$(tty)
+export OPENAI_API_KEY=$(security find-generic-password -s openai-api-key -w)
+export DEEPSEEK_API_KEY=$(security find-generic-password -s deepseek-api-key -w)
+export OPENROUTER_API_KEY=$(security find-generic-password -s openrouter-api-key -w)
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -117,6 +120,7 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix gnu-sed)/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix mysql@8.0)/bin:$PATH"
 export PATH="/usr/local/bin/:$PATH"
+export PATH="/Users/thiagofelix/.local/bin:$PATH"
 export PATH="$PNPM_HOME:$PATH"
 
 # Term
