@@ -107,7 +107,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR="/opt/homebrew/bin/nvim"
 export VISUAL="/opt/homebrew/bin/nvim"
 export GPG_TTY=$(tty)
-export OPENAI_API_KEY=$(security find-generic-password -s openai-api-key -w)
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
