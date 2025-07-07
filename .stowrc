@@ -1,0 +1,13 @@
+--target=$HOME
+--ignore=\.git
+--ignore=\.gitignore
+--ignore=\.macos
+--ignore=\.DS_Store
+--ignore=\.stow-local-ignore
+--ignore=README\.md
+--ignore=LICENSE
+--ignore=Brewfile
+--ignore=.*\.lock
+--ignore=node_modules
+--ignore=\.vscode
+--ignore=\.idea

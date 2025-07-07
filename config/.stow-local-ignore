@@ -1,0 +1,6 @@
+# Files to ignore when stowing the config package
+README\.md
+LICENSE
+\.gitignore
+\.DS_Store
+.*\.lock
