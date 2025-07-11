@@ -64,3 +64,54 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 alias claude="/Users/thiagofelix/.claude/local/claude"
+
+# Download a GitHub subdirectory from a tree URL
+# Usage: gget <github_tree_url> <subdir>
+gget() {
+  # Check for required arguments
+  if [[ -z "$1" || -z "$2" ]]; then
+    echo "Usage: gget <github_tree_url> <subdir>"
+    return 1
+  fi
+
+  # Parse the GitHub tree URL
+  if [[ "$1" =~ ^https?://github\.com/([^/]+)/([^/]+)/tree/([^/]+) ]]; then
+    user="${match[1]}"
+    repo="${match[2]}"
+    branch="${match[3]}"
+    subdir="$2"
+    archive_url="https://github.com/$user/$repo/archive/refs/heads/$branch.tar.gz"
+
+    echo "Downloading from:"
+    echo "  User: $user"
+    echo "  Repo: $repo"
+    echo "  Branch: $branch"
+    echo "  Subdir: $subdir"
+    echo "  Archive URL: $archive_url"
+
+    echo "\nDownloading archive..."
+    tmpdir="$(mktemp -d)"
+
+    # Download and extract the archive
+    if ! curl -sL "$archive_url" | tar -xz -C "$tmpdir"; then
+      echo "Error: Failed to download or extract the archive"
+      rm -rf "$tmpdir"
+      return 1
+    fi
+
+    src_path="$tmpdir/$repo-$branch/$subdir"
+
+    if [[ -d "$src_path" ]]; then
+      cp -r "$src_path" ./
+      echo "Successfully downloaded: $subdir"
+    else
+      echo "Error: Subdirectory '$subdir' not found in the repository"
+    fi
+
+    # Clean up
+    rm -rf "$tmpdir"
+  else
+    echo "Error: Invalid GitHub tree URL. URL must be in format: https://github.com/user/repo/tree/branch"
+    return 1
+  fi
+}

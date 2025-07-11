@@ -1,3 +1,6 @@
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -17,4 +20,3 @@ export SAVEHIST=10000                   # Maximum events in history file
 export DO_API_TOKEN="$(security find-generic-password -a $USER -s DO_API_TOKEN -w)"
 export VERCEL_API_TOKEN="$(security find-generic-password -a $USER -s VERCEL_API_TOKEN -w)"
 export GITHUB_API_TOKEN="$(security find-generic-password -a $USER -s GITHUB_API_TOKEN -w)"
-
