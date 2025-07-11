@@ -5,6 +5,8 @@ alias g="git"
 alias kitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 
 autoload -U compinit; compinit   # Initialize the completion
+source <(kubectl completion zsh)
+source <(minikube completion zsh)
 
 # Navigate comp menu using hjkl
 zmodload zsh/complist
