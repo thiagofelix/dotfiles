@@ -24,6 +24,7 @@ brew "vercel-cli"
 brew "awscli"
 brew "colima"
 brew "docker"
+brew "helm"
 
 cask "font-fira-code-nerd-font"
 cask "kitty"

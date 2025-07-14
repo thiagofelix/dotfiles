@@ -3,5 +3,75 @@
   "theme": "system",
   "model": "anthropic/claude-sonnet-4-20250514",
   "autoshare": false,
-  "autoupdate": true
+  "autoupdate": true,
+  "mode": {
+    "review": {
+      "prompt": "{file:./prompts/review.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "patch": false,
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "todowrite": true,
+        "todoread": true,
+        "webfetch": true
+      }
+    },
+    "debug": {
+      "prompt": "{file:./prompts/debug.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": true,
+        "patch": false,
+        "read": true,
+        "grep": true,
+        "glob": true,
+        "list": true,
+        "todowrite": true,
+        "todoread": true,
+        "webfetch": true
+      }
+    }
+  },
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ]
+    },
+    "postgres": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://localhost:5432/profitwise"
+      ]
+    },
+    "terraform": {
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "hashicorp/terraform-mcp-server"
+      ]
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    }
+  }
 }

@@ -5,8 +5,10 @@ alias g="git"
 alias kitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 
 autoload -U compinit; compinit   # Initialize the completion
+
 source <(kubectl completion zsh)
 source <(minikube completion zsh)
+source <(colima completion zsh)
 
 # Navigate comp menu using hjkl
 zmodload zsh/complist
@@ -64,6 +66,7 @@ zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"       # Cach
 bindkey -s ^f "tmux-sessionizer\n" 
 bindkey -v
 bindkey '^R' history-incremental-search-backward
+bindkey -v '^?' backward-delete-char
 
 alias claude="/Users/thiagofelix/.claude/local/claude"
 
