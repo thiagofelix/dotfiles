@@ -1,75 +1,76 @@
-eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-alias g="git"
-alias kitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
+# ============================================================================
+# ZINIT INITIALIZATION
+# ============================================================================
 
-autoload -U compinit; compinit   # Initialize the completion
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+# ============================================================================
+# PLUGINS
+# ============================================================================
+
+# Syntax highlighting (must be loaded before autosuggestions)
+zinit light zsh-users/zsh-syntax-highlighting
+
+# Autosuggestions
+zinit light zsh-users/zsh-autosuggestions
+
+# Completions
+zinit light zsh-users/zsh-completions
+
+# Better history search
+zinit light zsh-users/zsh-history-substring-search
+
+# Fast directory jumping
+zinit light agkozak/zsh-z
+
+# Load powerlevel10k theme
+zinit ice depth"1" # git clone depth
+zinit light romkatv/powerlevel10k
+
+# Load zsh-vi-mode for vi keybindings
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
+# Load completions
+autoload -U compinit && compinit
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+
+# ============================================================================
+# ===========================================================================
+ 
 source <(kubectl completion zsh)
 source <(minikube completion zsh)
 source <(colima completion zsh)
 
-# Navigate comp menu using hjkl
-zmodload zsh/complist
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-
-# Edit command lines using hjlk
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
-
-
-# ZSH Texxt Objects
-autoload -Uz select-bracketed select-quoted
-zle -N select-quoted
-zle -N select-bracketed
-for km in viopp visual; do
-  bindkey -M $km -- '-' vi-up-line-or-history
-  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
-    bindkey -M $km $c select-quoted
-  done
-  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-    bindkey -M $km $c select-bracketed
-  done
-done
-
-# Surrounding
-autoload -Uz surround
-zle -N delete-surround surround
-zle -N add-surround surround
-zle -N change-surround surround
-bindkey -M vicmd cs change-surround
-bindkey -M vicmd ds delete-surround
-bindkey -M vicmd ys add-surround
-bindkey -M visual S add-surround
-
-
-
-# Options
-
-setopt HIST_SAVE_NO_DUPS    # Do not write a duplicate event to the history file.
-setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
-setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
-setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
-
-
-zstyle ':completion:*' menu select                                        # Allow you to select in a menu
-zstyle ':completion:*' use-cache on                                       # Cache completions
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"       # Cache location
-
-# Misc
-
-bindkey -s ^f "tmux-sessionizer\n" 
-bindkey -v
-bindkey '^R' history-incremental-search-backward
-bindkey -v '^?' backward-delete-char
-
+alias g="git"
+alias kitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias claude="/Users/thiagofelix/.claude/local/claude"
 
+bindkey -s ^f "tmux-sessionizer\n" 
+
+
+# ============================================================================
+# gget
+# ===========================================================================
 # Download a GitHub subdirectory from a tree URL
 # Usage: gget <github_tree_url> <subdir>
 gget() {
