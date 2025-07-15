@@ -50,15 +50,18 @@ zinit light jeffreytse/zsh-vi-mode
 # Load completions
 autoload -U compinit && compinit
 
+# Disable instant prompt
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
 
 
 # ============================================================================
 # ===========================================================================
  
 source <(kubectl completion zsh)
-source <(minikube completion zsh)
 source <(colima completion zsh)
 
 alias g="git"
